@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('product.index');
-});
+Route::get('/', [ProductController::class, 'index']);
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
-    Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+/*Route::post('/create', function (Request $request){
+    dd($request);
+})->name('create');*/
 
-    Route::post('/create', [ProductController::class, 'store'])->name('product.store');
-    Route::post('/edit/{id}', [ProductController::class, 'update'])->name('product.update');
-});
+
+Route::post('/create', [ProductController::class, 'store']);
+/*Route::get('/show/{id}', function ($id){
+    return response()->json($id);
+});*/
+Route::get('/show/{id}', [ProductController::class, 'show']);
+Route::post('/update/{id}', [ProductController::class, 'update']);
+Route::get('/delete/{id}', [ProductController::class, 'delete']);
