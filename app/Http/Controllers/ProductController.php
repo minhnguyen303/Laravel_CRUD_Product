@@ -27,11 +27,13 @@ class ProductController extends Controller
 
     public function update($id, Request $request)
     {
+        DB::table('products')->where('id', $id)->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'desc' => $request->desc
+        ]);
+
         $product = Product::find($id);
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->desc = $request->desc;
-        $product->save();
 
         return response()->json($product);
     }
