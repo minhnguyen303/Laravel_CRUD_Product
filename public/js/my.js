@@ -155,21 +155,21 @@ $(document).ready(function () {
                 })
                 break;
             case "Xóa":
-                let idDelete = $(this).attr('id').slice(7);
-                id.val(idDelete);
-                btnClose.click();
                 if ($(this).attr('id') === 'btnDeleteProduct'){
                     $.ajax({
                         url: window.origin + "/delete/" + id.val(),
                         method: 'GET',
                         success: function (res) {
                             $("#"+"row_"+id.val()).remove();
+                            btnClose.trigger('click');
                         },
                         error: function (err) {
                             console.error(err);
                         }
                     })
                 }else {
+                    let idDelete = $(this).attr('id').slice(7);
+                    id.val(idDelete);
                     $('#titleAddProduct').hide();
                     $('#titleEditProduct').hide();
                     $('#titleShowProduct').hide();
@@ -184,14 +184,5 @@ $(document).ready(function () {
                 }
                 break;
         }
-    });
-
-    $('#createBtn').click(function () {
-
-
-    });
-
-    $('.edit').click(function () {
-        let id = $(this).attr('id').slice(5);
     });
 });
